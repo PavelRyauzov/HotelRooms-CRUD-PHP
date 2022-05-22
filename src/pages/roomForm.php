@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/header.php
         <div class="mb-3 row">
             <label for="photo" class="col-sm-2 col-form-label">Фотография</label>
             <div class="col-sm-10">
-                <input class="form-control" type="file" name="photo" id="photo">
+                <input class="form-control" type="file" name="img" id="img">
             </div>
         </div>
 
