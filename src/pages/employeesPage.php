@@ -1,14 +1,21 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']) . '/HotelCrudPHP/.core/index.php';
+require_once ($_SERVER['DOCUMENT_ROOT']) . '/HotelCrudPHP/.core/index.php';
 
 $employees = EmployeeActions::getAllEmployees();
+
+$errors = EmployeeActions::deleteEmployee();
+
 ?>
 
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
 <main class="container">
-    <a href="employeeForm.php" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
+    <h2>Cотрудники гостиницы</h2>
+    <a class="btn btn-primary float-end" role="button" data-bs-toggle="button"
+       href="employeeForm.php?action=create">
+        Создать
+    </a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -19,20 +26,32 @@ $employees = EmployeeActions::getAllEmployees();
         </tr>
         </thead>
         <?php if (count($employees) > 0): ?>
-        <?php foreach ($employees as $employee): ?>
-        <tbody>
-        <tr>
-            <th scope="row"><?php echo $employee['id'] ?></th>
-            <td><?php echo $employee['fullname'] ?></td>
-            <td><?php echo $employee['email'] ?></td>
-            <td><?php echo $employee['phone_number'] ?></td>
-            <td class="text-nowrap">
-                <a href="employeeForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </td>
-        </tr>
-        </tbody>
-        <?php endforeach; ?>
+            <?php foreach ($employees as $employee): ?>
+                <tbody>
+                <tr>
+                    <th scope="row"><?= htmlspecialchars($employee['id']) ?></th>
+                    <td><?= htmlspecialchars($employee['fullname']) ?></td>
+                    <td><?= htmlspecialchars($employee['email']) ?></td>
+                    <td><?= htmlspecialchars($employee['phone_number']) ?></td>
+                    <td class="text-nowrap">
+                        <form method="post">
+                            <a class="btn btn-primary" role="button" data-bs-toggle="button"
+                               href=<?= "employeeForm.php?action=edit&id=" . htmlspecialchars($employee['id']) ?>>
+                                Изменить
+                            </a>
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value=<?= htmlspecialchars($employee['id']) ?>>
+                            <button type="submit" name="delete" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+                <?php if (array_key_exists("delete_err", $errors)) : ?>
+                    <label for="delete" class="alert alert-danger container-fluid">
+                        <?= $errors['delete_err'] ?>
+                    </label>
+                <?php endif; ?>
+            <?php endforeach; ?>
         <?php endif; ?>
     </table>
 </main>

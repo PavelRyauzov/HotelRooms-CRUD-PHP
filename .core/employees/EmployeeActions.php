@@ -32,7 +32,7 @@ class EmployeeActions
             return [];
         }
 
-        if ($_POST['action'] != 'update') {
+        if ($_POST['action'] != 'edit') {
             return [];
         }
 

@@ -23,7 +23,7 @@ class EmployeeLogic
         if (empty($phoneNumber)) {
             $errors['phone_number_err'] = 'Не указан номер телефона';
         } else {
-            if (!preg_match("^\+?[78][\(]?\d{3}\)??\d{3}?\d{2}?\d{2}$", $phoneNumber)) {
+            if (!preg_match("/^\+?[78][\(]?\d{3}\)??\d{3}?\d{2}?\d{2}$/", $phoneNumber)) {
                 $errors['phone_number_err'] = 'Некорректный номер телефона';
             }
         }
@@ -71,7 +71,7 @@ class EmployeeLogic
         if (empty($phoneNumber)) {
             $errors['phone_number_err'] = 'Не указан номер телефона';
         } else {
-            if (!preg_match("^\+?[78][\(]?\d{3}\)??\d{3}?\d{2}?\d{2}$", $phoneNumber)) {
+            if (!preg_match("/^\+?[78][\(]?\d{3}\)??\d{3}?\d{2}?\d{2}$/", $phoneNumber)) {
                 $errors['phone_number_err'] = 'Некорректный номер телефона';
             }
         }

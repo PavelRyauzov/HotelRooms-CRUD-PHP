@@ -17,8 +17,8 @@ class EmployeeTable
 
     public static function update(int $id, string $fullname, string $email, string $phoneNumber)
     {
-        $query = Database::prepare('UPDATE `employees` SET `id` = :id, `fullname` = :fullname,' .
-                       '`email` = :email, `phone_number` = :phoneNumber');
+        $query = Database::prepare('UPDATE `employees` SET `fullname` = :fullname,' .
+                       '`email` = :email, `phone_number` = :phoneNumber WHERE `id` = :id');
         $query->bindValue(":id", $id, PDO::PARAM_INT);
         $query->bindValue(":fullname", $fullname, PDO::PARAM_STR);
         $query->bindValue(":email", $email, PDO::PARAM_STR);
@@ -48,7 +48,7 @@ class EmployeeTable
 
     public static function getById(int $id): array
     {
-        $query = Database::prepare('SELECT FROM `employees` WHERE `id` = :id LIMIT 1');
+        $query = Database::prepare('SELECT * FROM `employees` WHERE `id` = :id LIMIT 1');
         $query->bindValue(":id", $id, PDO::PARAM_INT);
         $query->execute();
 
