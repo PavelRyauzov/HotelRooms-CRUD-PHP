@@ -46,8 +46,8 @@ class RoomTable
     public static function getAll(): array
     {
         $query = Database::prepare(
-            'SELECT room.id, room.img_path, room.name, room.description, room.price, employee_id, employee.name as employee_name'.
-                      'FROM `rooms` JOIN `employees` ON employee_id = employee.id');
+            'SELECT rooms.id, rooms.img_path, rooms.name, rooms.description, rooms.price, employee_id,' .
+      'employees.fullname as employee_name FROM `rooms` JOIN `employees` ON employee_id = employees.id ORDER BY rooms.id ASC');
         $query->execute();
 
         return $query->fetchAll();

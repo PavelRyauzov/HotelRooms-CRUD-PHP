@@ -3,7 +3,7 @@
 class RoomActions
 {
     private static function imgDir(): string {
-        return $_SERVER['DOCUMENT_ROOT'] . '/assets/rooms_images/';
+        return $_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/assets/images/rooms_images/';
     }
 
     public static function createRoom(): array

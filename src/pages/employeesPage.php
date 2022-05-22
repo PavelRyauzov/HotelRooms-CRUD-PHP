@@ -36,7 +36,7 @@ $errors = EmployeeActions::deleteEmployee();
                     <td class="text-nowrap">
                         <form method="post">
                             <a class="btn btn-primary" role="button" data-bs-toggle="button"
-                               href=<?= "employeeForm.php?action=edit&id=" . htmlspecialchars($employee['id']) ?>>
+                               href=<?= 'employeeForm.php?action=edit&id=' . htmlspecialchars($employee['id']) ?>>
                                 Изменить
                             </a>
                             <input type="hidden" name="action" value="delete">
@@ -46,7 +46,7 @@ $errors = EmployeeActions::deleteEmployee();
                     </td>
                 </tr>
                 </tbody>
-                <?php if (array_key_exists("delete_err", $errors)) : ?>
+                <?php if (array_key_exists('delete_err', $errors)) : ?>
                     <label for="delete" class="alert alert-danger container-fluid">
                         <?= $errors['delete_err'] ?>
                     </label>

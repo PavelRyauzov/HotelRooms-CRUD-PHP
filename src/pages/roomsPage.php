@@ -1,8 +1,15 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/header.php");
+require_once ($_SERVER['DOCUMENT_ROOT']) . '/HotelCrudPHP/.core/index.php';
+
+$rooms = RoomActions::getAllRooms();
+
+$errors = RoomActions::deleteRoom();
+
 ?>
 
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
 <main class="container">
+    <h2>Номера гостиницы</h2>
     <a href="roomForm.php" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
 
     <table class="table table-hover">
@@ -17,44 +24,36 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/header.php
             <th scope="col">Действие</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td><img src="../../assets/images/rooms_images/room1.jpeg" alt=""></td>
-            <td>Люкс-1</td>
-            <td>Карпов Платон Львович</td>
-            <td>Отличный выбор</td>
-            <td>10000</td>
-            <td class="text-nowrap">
-                <a href="roomForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td><img src="../../assets/images/rooms_images/room2.jpeg" alt=""></td>
-            <td>Комфорт-312</td>
-            <td>Поляков Сергей Дмитриевич</td>
-            <td>Хороший номер для любителей минимализма</td>
-            <td>3000</td>
-            <td class="text-nowrap">
-                <a href="roomForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td><img src="../../assets/images/rooms_images/room3.jpeg" alt=""></td>
-            <td>Эконом-111</td>
-            <td>Алексина Ольга Юрьевна</td>
-            <td>Небольшой номер для одного человека</td>
-            <td>1000</td>
-            <td class="text-nowrap">
-                <a href="roomForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </td>
-        </tr>
-        </tbody>
+        <?php if (count($rooms) > 0): ?>
+            <?php foreach ($rooms as $room): ?>
+                <tbody>
+                <tr>
+                    <th scope="row"><?= htmlspecialchars($room['id']) ?></th>
+                    <td><img src=<?= '../../assets/images/rooms_images/' . htmlspecialchars($room['img_path']) ?>></td>
+                    <td><?= htmlspecialchars($room['name']) ?></td>
+                    <td><?= htmlspecialchars($room['employee_name']) ?></td>
+                    <td><?= htmlspecialchars($room['description']) ?></td>
+                    <td><?= htmlspecialchars($room['price']) ?></td>
+                    <td class="text-nowrap">
+                        <form method="post">
+                            <a class="btn btn-primary" role="button" data-bs-toggle="button"
+                               href=<?= 'roomForm.php?action=edit&id=' . htmlspecialchars($room['id']) ?>>
+                                Изменить
+                            </a>
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value=<?= htmlspecialchars($room['id']) ?>>
+                            <button type="submit" name="delete" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+                <?php if (array_key_exists('delete_err', $errors)) : ?>
+                    <label for="delete" class="alert alert-danger container-fluid">
+                        <?= $errors['delete_err'] ?>
+                    </label>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 </main>
 
