@@ -1,7 +1,10 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/header.php");
+require_once($_SERVER['DOCUMENT_ROOT']) . '/HotelCrudPHP/.core/index.php';
+
+$employees = EmployeeActions::getAllEmployees();
 ?>
 
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
 <main class="container">
     <a href="employeeForm.php" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
 
@@ -15,41 +18,22 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/header.php
             <th scope="col">Действие</th>
         </tr>
         </thead>
+        <?php if (count($employees) > 0): ?>
+        <?php foreach ($employees as $employee): ?>
         <tbody>
         <tr>
-            <th scope="row">1</th>
-            <td>Карпов Платон Львович</td>
-            <td>karpov@gmail.com</td>
-            <td>79888233463</td>
-            <td class="text-nowrap">
-                <a href="employeeForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Поляков Сергей Дмитриевич</td>
-            <td>polyakov@mail.ru</td>
-            <td>79278223413</td>
-            <td class="text-nowrap">
-                <a href="employeeForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Алексина Ольга Юрьевна</td>
-            <td>alexina@list.ru</td>
-            <td>79035558866</td>
+            <th scope="row"><?php echo $employee['id'] ?></th>
+            <td><?php echo $employee['fullname'] ?></td>
+            <td><?php echo $employee['email'] ?></td>
+            <td><?php echo $employee['phone_number'] ?></td>
             <td class="text-nowrap">
                 <a href="employeeForm.php" class="btn btn-primary" role="button" data-bs-toggle="button">Изменить</a>
                 <button type="button" class="btn btn-danger">Удалить</button>
             </td>
         </tr>
         </tbody>
+        <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 </main>
-
-<?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/footer.php");
-?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/footer.php'); ?>

@@ -12,7 +12,7 @@ class Database
         $this->connection = new \PDO(
             'mysql:host=localhost;dbname=hotel;charset=utf8',
             'root',
-            '',
+            'root',
             [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -27,7 +27,7 @@ class Database
     }
 
     // Запрещаем десериализацию
-    protected function __wakeup()
+    public function __wakeup()
     {
         throw new \BadMethodCallException('Unable to deserialize database connection');
     }
