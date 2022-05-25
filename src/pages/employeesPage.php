@@ -10,10 +10,12 @@ $errors = EmployeeActions::deleteEmployee();
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
 <main class="container">
     <h2>Cотрудники гостиницы</h2>
+    <?php if (isset($_SESSION['user_email'])) :?>
     <a class="btn btn-primary float-end" role="button" data-bs-toggle="button"
        href="employeeForm.php?action=create">
         Создать
     </a>
+    <?php endif;?>
 
     <table class="table table-hover">
         <thead>
@@ -22,7 +24,9 @@ $errors = EmployeeActions::deleteEmployee();
             <th scope="col">ФИО</th>
             <th scope="col">email</th>
             <th scope="col">Номер телефона</th>
+            <?php if (isset($_SESSION['user_email'])) :?>
             <th scope="col">Действие</th>
+            <?php endif;?>
         </tr>
         </thead>
         <?php if (count($employees) > 0): ?>
@@ -33,6 +37,7 @@ $errors = EmployeeActions::deleteEmployee();
                     <td><?= htmlspecialchars($employee['fullname']) ?></td>
                     <td><?= htmlspecialchars($employee['email']) ?></td>
                     <td><?= htmlspecialchars($employee['phone_number']) ?></td>
+                    <?php if (isset($_SESSION['user_email'])) :?>
                     <td class="text-nowrap">
                         <form method="post">
                             <a class="btn btn-primary" role="button" data-bs-toggle="button"
@@ -44,6 +49,7 @@ $errors = EmployeeActions::deleteEmployee();
                             <button type="submit" name="delete" class="btn btn-danger">Удалить</button>
                         </form>
                     </td>
+                    <?php endif;?>
                 </tr>
                 </tbody>
                 <?php if (array_key_exists('delete_err', $errors)) : ?>

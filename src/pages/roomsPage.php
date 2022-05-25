@@ -10,7 +10,9 @@ $errors = RoomActions::deleteRoom();
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
 <main class="container">
     <h2>Номера гостиницы</h2>
-    <a href="roomForm.php?action=create" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
+    <?php if (isset($_SESSION['user_email'])) :?>
+        <a href="roomForm.php?action=create" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
+    <?php endif;?>
 
     <table class="table table-hover">
         <thead>
@@ -21,7 +23,9 @@ $errors = RoomActions::deleteRoom();
             <th scope="col">Ответственный сотрудник</th>
             <th scope="col">Описание</th>
             <th scope="col">Стоимость за сутки</th>
-            <th scope="col">Действие</th>
+            <?php if (isset($_SESSION['user_email'])) :?>
+                <th scope="col">Действие</th>
+            <?php endif;?>
         </tr>
         </thead>
         <?php if (count($rooms) > 0): ?>
@@ -34,6 +38,7 @@ $errors = RoomActions::deleteRoom();
                     <td><?= htmlspecialchars($room['employee_name']) ?></td>
                     <td><?= htmlspecialchars($room['description']) ?></td>
                     <td><?= htmlspecialchars($room['price']) ?></td>
+                    <?php if (isset($_SESSION['user_email'])) :?>
                     <td class="text-nowrap">
                         <form method="post">
                             <a class="btn btn-primary" role="button" data-bs-toggle="button"
@@ -45,6 +50,7 @@ $errors = RoomActions::deleteRoom();
                             <button type="submit" name="delete" class="btn btn-danger">Удалить</button>
                         </form>
                     </td>
+                    <?php endif;?>
                 </tr>
                 </tbody>
                 <?php if (array_key_exists('delete_err', $errors)) : ?>
@@ -57,6 +63,4 @@ $errors = RoomActions::deleteRoom();
     </table>
 </main>
 
-<?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/footer.php");
-?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/HotelCrudPHP/src/templates/footer.php"); ?>
