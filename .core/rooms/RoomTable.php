@@ -4,9 +4,10 @@ class RoomTable
 {
     public static function create(string $imgPath, string $name, int $employeeId, string $desc, string $price)
     {
+        print_r($imgPath);
         $query = Database::prepare(
             'INSERT INTO `rooms` (img_path, name, employee_id, description, price)' .
-            'VALUES (:imgPath, :name, :employeeId, :desc, :$price)');
+            'VALUES (:imgPath, :name, :employeeId, :desc, :price)');
         $query->bindValue(':imgPath', $imgPath, PDO::PARAM_STR);
         $query->bindValue(':name', $name, PDO::PARAM_STR);
         $query->bindValue(':employeeId', $employeeId, PDO::PARAM_INT);
@@ -20,7 +21,7 @@ class RoomTable
 
     public static function update(int $id, string $imgPath, string $name, int $employeeId, string $desc, string $price)
     {
-        $query = Database::prepare('UPDATE `rooms` SET `$img_path` = :imgPath,' .
+        $query = Database::prepare('UPDATE `rooms` SET `img_path` = :imgPath,' .
             '`name` = :name, `employee_id` = :employeeId, `description` = :desc, `price` = :price WHERE `id` = :id');
         $query->bindValue(":id", $id, PDO::PARAM_INT);
         $query->bindValue(":imgPath", $imgPath, PDO::PARAM_STR);

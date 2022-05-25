@@ -13,8 +13,10 @@ if ($_REQUEST['action'] == 'edit') {
 
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
     <main class="container">
+        <h2>Сотрудник</h2>
+        <?php if ($isEdit): ?> <h3>Запись №<?= htmlspecialchars($editableEmployee['id']) ?></h3> <?php endif; ?>
+
         <form action="" method="post">
-            <div class="container">
                 <div class="mb-3 row">
                     <label for="fullname" class="col-sm-2 col-form-label">ФИО</label>
                     <div class="col-sm-10">
@@ -71,8 +73,6 @@ if ($_REQUEST['action'] == 'edit') {
                     <input type="hidden" name="id" value=<?= $editableEmployee['id'] ?>>
                     <button type="submit" class="btn btn-primary">Изменить</button>
                 <?php endif; ?>
-
-            </div>
         </form>
     </main>
 

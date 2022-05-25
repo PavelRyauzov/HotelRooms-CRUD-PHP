@@ -19,9 +19,8 @@ class RoomActions
         $image = "";
         if (!empty(basename($_FILES['image']['name']))) {
             if (!move_uploaded_file($_FILES['image']['tmp_name'], self::imgDir().basename($_FILES['image']['name']))) {
-
             }
-            $image = self::imgDir().basename($_FILES['image']['name']);
+            $image = $_FILES['image']['name'];
         }
 
         $name = $_POST['name'];
@@ -56,9 +55,11 @@ class RoomActions
         $desc = $_POST['description'];
         $price = $_POST['price'];
 
-        $image = RoomLogic::getRoomById($id)['image'];
+        $image = RoomLogic::getRoomById($id)['img_path'];
         if (!empty(basename($_FILES['image']['name']))) {
-            $image = self::imgDir().basename($_FILES['image']['name']);
+            if (!move_uploaded_file($_FILES['image']['tmp_name'], self::imgDir().basename($_FILES['image']['name']))) {
+            }
+            $image = $_FILES['image']['name'];
         }
 
         $errors = RoomLogic::updateRoom($id, $image, $name, $employeeId, $desc, $price);

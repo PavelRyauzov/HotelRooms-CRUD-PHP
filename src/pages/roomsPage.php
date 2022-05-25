@@ -10,7 +10,7 @@ $errors = RoomActions::deleteRoom();
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>
 <main class="container">
     <h2>Номера гостиницы</h2>
-    <a href="roomForm.php" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
+    <a href="roomForm.php?action=create" class="btn btn-primary float-end" role="button" data-bs-toggle="button">Создать</a>
 
     <table class="table table-hover">
         <thead>
