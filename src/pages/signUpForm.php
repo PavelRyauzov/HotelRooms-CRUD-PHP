@@ -2,8 +2,6 @@
 require_once ($_SERVER['DOCUMENT_ROOT']) . '/HotelCrudPHP/.core/index.php';
 
 $errors = UserActions::signUp();
-
-print_r($_POST);
 ?>
 
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/HotelCrudPHP/src/templates/header.php'); ?>

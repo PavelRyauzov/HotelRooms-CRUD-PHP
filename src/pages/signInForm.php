@@ -29,7 +29,7 @@ $errors = UserActions::signIn();
             </div>
 
             <input type="hidden" name="action" value="log-in">
-            <button class="w-100 btn btn-success" type="submit">Войти </button>
+            <button class="w-100 btn btn-primary" type="submit">Войти </button>
             <div class="container d-flex justify-content-center mt-3">
                 <a class="btn-outline-dark" href="signUpForm.php">Зарегистрировать новый аккаунт</a>
             </div>
